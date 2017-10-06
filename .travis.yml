@@ -1,4 +1,5 @@
 os: osx
+osx_image: xcode8.1
 
 install:
   - cd runtime.osx.10.10-x64.CoreCompat.System.Drawing
