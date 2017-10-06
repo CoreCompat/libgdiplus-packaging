@@ -47,6 +47,9 @@
     <Content Include="$(LibgdiplusDir)libgdiplus.dylib">
       <PackagePath>runtimes/osx-x64/native/</PackagePath>
     </Content>
+    <Content Include="$(LibgdiplusDir)libpng16.16.dylib">
+      <PackagePath>runtimes/osx-x64/native/</PackagePath>
+    </Content>
     <Content Include="libgdiplus-lighthouse.dylib">
       <PackagePath>runtimes/osx-x64/native/</PackagePath>
     </Content>
