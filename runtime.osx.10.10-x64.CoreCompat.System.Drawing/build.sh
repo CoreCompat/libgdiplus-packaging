@@ -45,3 +45,7 @@ for f in "$out/lib/"*.dylib; do
 
    # otool -L "$f"
 done
+
+# Build the lighthouse library
+cd $path
+gcc -shared -o libgdiplus-lighthouse.dylib -fPIC -ldl lighthouse.c -m64

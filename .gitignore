@@ -3,3 +3,5 @@ bin/
 obj/
 libgdiplus/
 out/
+*.dylib
+*.tar.gz
