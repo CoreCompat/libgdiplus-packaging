@@ -1,0 +1,17 @@
+os: osx
+
+install:
+  - cd runtime.osx.10.10-x64.CoreCompat.System.Drawing
+  - wget https://download.microsoft.com/download/0/F/D/0FD852A4-7EA1-4E2A-983A-0484AC19B92C/dotnet-sdk-2.0.0-osx-gs-x64.pkg -O ~/dotnet-sdk-2.0.0-osx-gs-x64.pkg
+  - sudo installer -pkg ~/dotnet-sdk-2.0.0-osx-gs-x64.pkg -target /
+  - PATH="/usr/local/share/dotnet/:$PATH"
+  - dotnet --version
+  - ./get-sources.sh
+  - ./install-dependencies.sh
+
+script:
+  - ./build.sh
+  - ./package.sh
+  - dotnet build -c Release /p:VersionSuffix=r$TRAVIS_BUILD_NUMBER
+  - dotnet pack -c Release /p:VersionSuffix=r$TRAVIS_BUILD_NUMBER
+  - dotnet nuget push bin/Release/runtime.osx.10.10-x64.CoreCompat.System.Drawing.5.4.0-r$TRAVIS_BUILD_NUMBER.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_TOKEN
