@@ -69,6 +69,15 @@ jobs:
       set -e
 
       cd libgdiplus
+      ./autogen.sh --prefix="$out" CPPFLAGS="-I/usr/X11/include/" --without-x11
+      make clean
+      make
+      make check 
+    displayName: Build and test
+  - script: |
+      set -e
+
+      cd libgdiplus
       LIBGDIPLUS_COMMIT=$(git rev-parse HEAD)
       echo "Building for libgdiplus commit $LIBGDIPLUS_COMMIT"
 
