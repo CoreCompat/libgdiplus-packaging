@@ -69,7 +69,7 @@ jobs:
       set -e
 
       cd libgdiplus
-      ./autogen.sh --prefix="$out" CPPFLAGS="-I/usr/X11/include/" --without-x11
+      ./autogen.sh
       make clean
       make
       make check 
