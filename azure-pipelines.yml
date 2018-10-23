@@ -35,12 +35,12 @@ jobs:
     matrix:
       xenial:
         DIST: xenial
-#      bionic:
-#        DIST: bionic
-#      precise:
-#        DIST: precise
-#      trusty:
-#        DIST: trusty
+      bionic:
+        DIST: bionic
+      precise:
+        DIST: precise
+      trusty:
+        DIST: trusty
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
@@ -87,7 +87,7 @@ jobs:
       cd ../libgdiplus-${LIBGDIPLUS_VERSION}.${BUILD_BUILDID}
       rm -rf debian/patches/*
 
-      dch -v "${LIBGDIPLUS_VERSION}.${BUILD_BUILDID}-0$DIST" --distribution $DIST "libgdiplus (upstream commit ${LIBGDIPLUS_COMMIT})"
+      dch -b -v "${LIBGDIPLUS_VERSION}.${BUILD_BUILDID}-0$DIST" --distribution $DIST "libgdiplus (upstream commit ${LIBGDIPLUS_COMMIT})"
       debuild -S -sa -k5314912C -p"$BUILD_SOURCESDIRECTORY/gpg-pass.sh /tmp/gpg_passphrase"
       cp ../libgdiplus_${LIBGDIPLUS_VERSION}* $BUILD_ARTIFACTSTAGINGDIRECTORY/deb/
 
