@@ -4,8 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Title>OS X Native libraries for System.Drawing</Title>
     <Description>Allows you to use System.Drawing on OS X</Description>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/CoreCompat/</PackageLicenseUrl>
-    <PackageProjectUrl></PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/CoreCompat/libgdiplus-packaging/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/CoreCompat/libgdiplus-packaging</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <Copyright>Mono</Copyright>
     <LibgdiplusDir>out/usr/local/lib/</LibgdiplusDir>
