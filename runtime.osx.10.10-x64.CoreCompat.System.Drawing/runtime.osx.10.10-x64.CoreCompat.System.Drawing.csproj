@@ -9,9 +9,7 @@
     <RepositoryType>git</RepositoryType>
     <Copyright>Mono</Copyright>
     <LibgdiplusDir>out/usr/local/lib/</LibgdiplusDir>
-    <VersionPrefix>5.4</VersionPrefix>
   </PropertyGroup>
-
 
   <ItemGroup>
     <Content Include="$(LibgdiplusDir)libcairo.2.dylib">
