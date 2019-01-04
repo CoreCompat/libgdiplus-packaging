@@ -20,7 +20,7 @@ jobs:
       ./build.sh
       mkdir ${BUILD_ARTIFACTSTAGINGDIRECTORY}/libgdiplus
       dotnet build -c Release /p:Version=${LIBGDIPLUS_VERSION}.${BUILD_BUILDID}
-      dotnet pack -c Release /p:Version=${LIBGDIPULS_VERSION}.${BUILD_BUILDID} -o ${BUILD_ARTIFACTSTAGINGDIRECTORY}/libgdiplus
+      dotnet pack -c Release /p:Version=${LIBGDIPLUS_VERSION}.${BUILD_BUILDID} -o ${BUILD_ARTIFACTSTAGINGDIRECTORY}/libgdiplus
     displayName: Build
   - task: PublishBuildArtifacts@1
     inputs:
