@@ -173,6 +173,7 @@ jobs:
 
       sed -i "s/@VERSION@/${LIBGDIPLUS_VERSION}.${BUILD_BUILDID}/" libgdiplus0.spec
       sed -i "s/tar.bz2/tar.gz/" libgdiplus0.spec
+      sed -i "s@%configure@%define _configure ./autogen.sh\n%configure@" libgdiplus0.spec
       cat libgdiplus0.spec
       osc add *
       osc commit -m "Version libgdiplus_${LIBGDIPLUS_VERSION}.${BUILD_BUILDID} - Azure Pipelines ${BUILD_BUILDNUMBER}"
