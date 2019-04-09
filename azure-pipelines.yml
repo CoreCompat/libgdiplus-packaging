@@ -28,8 +28,9 @@ jobs:
       artifactName: 'libgdiplus'
       publishLocation: 'Container'
     displayName: Publish
+  condition: False
 
-- job: linux
+- job: ppa
   strategy:
     maxParallel: 4
     matrix:
@@ -72,7 +73,7 @@ jobs:
       ./autogen.sh
       make clean
       make
-      make check 
+      make check
     displayName: Build and test
   - script: |
       set -e
@@ -110,3 +111,66 @@ jobs:
       artifactName: 'deb' 
       publishLocation: 'Container'
     displayName: Publish
+  condition: False
+
+- job: osc
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: |
+      lsb_release -a
+    displayName: Check Ubuntu version
+  - script: |
+      sudo apt-get install -y osc
+    displayName: 'Install dependencies'
+  - script: |
+      echo "[general]" > ~/.oscrc
+      echo "apiurl = https://api.opensuse.org" >> ~/.oscrc
+      echo "[https://api.opensuse.org]" >> ~/.oscrc
+      echo "user = $OSC_USER" >> ~/.oscrc
+      echo "pass = $OSC_PASSWORD" >> ~/.oscrc
+    displayName: 'Configure OSC'
+  - script: |
+      sudo apt-get build-dep libgdiplus
+
+      cd $BUILD_SOURCESDIRECTORY
+      git clone https://github.com/mono/libgdiplus --depth 1 --single-branch --branch master
+      ls libgdiplus
+    displayName: Get sources
+  - script: |
+      set -e
+
+      cd $BUILD_SOURCESDIRECTORY/libgdiplus
+      ./autogen.sh
+      make clean
+      make
+      make check
+    displayName: Build and test
+  - script: |
+      set -e
+
+      mkdir -p $BUILD_ARTIFACTSTAGINGDIRECTORY/osc
+      cd $BUILD_ARTIFACTSTAGINGDIRECTORY/osc
+      osc checkout home:qmfrederik
+
+      cd $BUILD_ARTIFACTSTAGINGDIRECTORY/osc/home\:qmfrederik/libgdiplus/
+      osc rm *
+      
+      cd $BUILD_SOURCESDIRECTORY/libgdiplus
+      LIBGDIPLUS_COMMIT=$(git rev-parse HEAD)
+      echo "Building for libgdiplus commit $LIBGDIPLUS_COMMIT"
+
+      git archive --format tar.gz --prefix libgdiplus-${LIBGDIPLUS_VERSION}.${BUILD_BUILDID}/ -o $BUILD_ARTIFACTSTAGINGDIRECTORY/osc/home\:qmfrederik/libgdiplus/libgdiplus-${LIBGDIPLUS_VERSION}.${BUILD_BUILDID}.tar.gz ${LIBGDIPLUS_COMMIT}
+      cp libgdiplus0.spec.in $BUILD_ARTIFACTSTAGINGDIRECTORY/osc/home\:qmfrederik/libgdiplus/libgdiplus0.spec
+
+      cd $BUILD_ARTIFACTSTAGINGDIRECTORY/osc/home\:qmfrederik/libgdiplus/
+
+      sed -i "s/@VERSION@/${LIBGDIPLUS_VERSION}.${BUILD_BUILDID}/" libgdiplus0.spec
+      sed -i "s/tar.bz2/tar.gz/" libgdiplus0.spec
+      cat libgdiplus0.spec
+      osc add *
+      osc commit -m "Version libgdiplus_${LIBGDIPLUS_VERSION}.${BUILD_BUILDID} - Azure Pipelines ${BUILD_BUILDNUMBER}"
+    displayName: Update OSC archives
+  - script: |
+      rm -rf ~/.oscrc
+    displayName: 'Cleanup OSC key'
