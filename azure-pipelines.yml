@@ -59,6 +59,9 @@ jobs:
       echo "${GPG_PASSPHRASE}" >> /tmp/gpg_passphrase
     displayName: 'Configure GPG'
   - script: |
+      sudo sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list
+      sudo apt-get update
+
       sudo apt-get build-dep libgdiplus
       apt-get source libgdiplus
       
@@ -131,6 +134,9 @@ jobs:
       echo "pass = $OSC_PASSWORD" >> ~/.oscrc
     displayName: 'Configure OSC'
   - script: |
+      sudo sed -Ei 's/^# deb-src /deb-src /' /etc/apt/sources.list
+      sudo apt-get update
+
       sudo apt-get build-dep libgdiplus
 
       cd $BUILD_SOURCESDIRECTORY
