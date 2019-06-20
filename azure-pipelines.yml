@@ -118,6 +118,7 @@ jobs:
 
       dch -b -v "${LIBGDIPLUS_VERSION}.${BUILD_BUILDID}-0$DIST" --distribution $DIST "libgdiplus (upstream commit ${LIBGDIPLUS_COMMIT})"
       debuild -S -sa -k5314912C -p"$BUILD_SOURCESDIRECTORY/gpg-pass.sh /tmp/gpg_passphrase"
+      debuild -b -sa -k5314912C -p"$BUILD_SOURCESDIRECTORY/gpg-pass.sh /tmp/gpg_passphrase"
       cp ../libgdiplus_${LIBGDIPLUS_VERSION}* $BUILD_ARTIFACTSTAGINGDIRECTORY/deb/
     displayName: Build .deb package
   - script: |
