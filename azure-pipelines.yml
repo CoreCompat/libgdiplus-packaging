@@ -37,12 +37,14 @@ jobs:
     inputs:
       testRunner: VSTest
       testResultsFiles: CoreCompat.System.Drawing.Tests/*.trx
+    condition: always()
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)/libgdiplus'
       artifactName: 'libgdiplus'
       publishLocation: 'Container'
     displayName: Publish
+    condition: always()
 
 - job: ppa
   strategy:
