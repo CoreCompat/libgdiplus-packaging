@@ -31,6 +31,13 @@ jobs:
       curl -L -O https://github.com/dotnet/corefx/archive/v2.2.5.tar.gz
       tar xzf v2.2.5.tar.gz
 
+      export out="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib"
+
+      echo "Running tests using libraries in $out:"
+      ls $out
+
+      export LD_LIBRARY_PATH="$out:$LD_LIBRARY_PATH"
+      echo "LD_LIBRARY_PATH: $LD_LIBRARY_PATH"
       dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.trx"
     displayName: Run System.Drawing.Common unit tests
   - task: PublishTestResults@1
