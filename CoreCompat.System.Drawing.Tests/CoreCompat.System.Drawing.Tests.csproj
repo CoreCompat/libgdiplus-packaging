@@ -35,6 +35,8 @@
 
   <ItemGroup>
     <Compile Include="$(TestDir)/$(TestSuite)/*.cs" />
+    <Compile Include="$(TestDir)/Helpers.cs" />
+    <Compile Include="Dummy.cs" />
     <Compile Remove="$(TestDir)/ColorTranslatorTests.cs" />
     <Compile Remove="$(TestDir)/ToolboxBitmapAttributeTests.cs" />
     <Compile Remove="$(TestDir)/IconTests.cs" />
