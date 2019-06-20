@@ -13,14 +13,21 @@
 
     <EnableDefaultItems>false</EnableDefaultItems>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <XunitNetcoreExtensionsVersion>2.2.0-preview1-03915-02</XunitNetcoreExtensionsVersion>
+    <XUnitPackageVersion>2.3.0-beta1-build3642</XUnitPackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1-pre.build.4059	" />
-    <PackageReference Include="xunit.assert" Version="2.4.1-pre.build.4059" />
-    <PackageReference Include="xunit.core" Version="2.4.1-pre.build.4059" />
-    <PackageReference Include="Microsoft.DotNet.XUnitExtensions" Version="2.4.1-beta.19319.8" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="$(XUnitPackageVersion)" />
+    <PackageReference Include="xunit.assert" Version="$(XUnitPackageVersion)" />
+    <PackageReference Include="xunit.core" Version="$(XUnitPackageVersion)" />
+    <PackageReference Include="Microsoft.xunit.netcore.extensions" Version="$(XunitNetcoreExtensionsVersion)" />
+    <PackageReference Include="Microsoft.DotNet.BuildTools.TestSuite" Version="$(XunitNetcoreExtensionsVersion)" />
+    <PackageReference Include="System.Linq.Expressions" Version="4.1.0" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.1.0" />
+    <!-- <PackageReference Include="Microsoft.DotNet.XUnitExtensions" Version="2.4.1-beta.19319.8" /> -->
     <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
     <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.6.20" />
   </ItemGroup>
