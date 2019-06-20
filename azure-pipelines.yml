@@ -36,8 +36,8 @@ jobs:
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite=""
-      dotnet build /p:TestSuite=$TestSuite
-      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$TestSuite.trx" --no-build
+      dotnet build /p:TestSuite=$TestSuite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$TestSuite.trx" --no-build -c Release
     displayName: Run System.Drawing.Common unit tests
     continueOnError: true
   - script: |
@@ -45,8 +45,8 @@ jobs:
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite="Design"
-      dotnet build /p:TestSuite=$test_suite
-      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$test_suite.trx" --no-build
+      dotnet build /p:TestSuite=$test_suite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$test_suite.trx" --no-build -c Release
     displayName: Run System.Drawing.Common Design unit tests
     continueOnError: true
   - script: |
@@ -54,8 +54,8 @@ jobs:
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite="Imaging"
-      dotnet build /p:TestSuite=$test_suite
-      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$test_suite.trx" --no-build
+      dotnet build /p:TestSuite=$test_suite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$test_suite.trx" --no-build -c Release
     displayName: Run System.Drawing.Common Imaging unit tests
     continueOnError: true
   - script: |
@@ -63,16 +63,16 @@ jobs:
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite="Printing"
-      dotnet build /p:TestSuite=$test_suite
-      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$test_suite.trx" --no-build
+      dotnet build /p:TestSuite=$test_suite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$test_suite.trx" --no-build -c Release
     displayName: Run System.Drawing.Common Printing unit tests
     continueOnError: true
   - script: |
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite="Drawing2D"
-      dotnet build /p:TestSuite=$test_suite
-      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$test_suite.trx" --no-build
+      dotnet build /p:TestSuite=$test_suite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$test_suite.trx" --no-build -c Release
     displayName: Run System.Drawing.Common Drawing2D unit tests
     continueOnError: true
   - script: |
@@ -80,8 +80,8 @@ jobs:
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite="Text"
-      dotnet build /p:TestSuite=$test_suite
-      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$test_suite.trx" --no-build
+      dotnet build /p:TestSuite=$test_suite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$test_suite.trx" --no-build -c Release
     displayName: Run System.Drawing.Common Text unit tests
     continueOnError: true
   - script: |
@@ -89,8 +89,8 @@ jobs:
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite="mono/System.Drawing"
-      dotnet build /p:TestSuite=$TestSuite
-      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.mono.System.Drawing.trx" --no-build
+      dotnet build /p:TestSuite=$TestSuite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.mono.System.Drawing.trx" --no-build -c Release
     displayName: Run System.Drawing.Common mono/System.Drawing unit tests
     continueOnError: true
   - script: |
@@ -98,8 +98,8 @@ jobs:
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite="mono/System.Drawing.Imaging"
-      dotnet build /p:TestSuite=$TestSuite
-      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.mono.System.Drawing.Imaging.trx" --no-build
+      dotnet build /p:TestSuite=$TestSuite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.mono.System.Drawing.Imaging.trx" --no-build -c Release
     displayName: Run System.Drawing.Common mono/System.Drawing.Imaging unit tests
     continueOnError: true
   - script: |
@@ -107,8 +107,8 @@ jobs:
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite="mono/System.Imaging"
-      dotnet build /p:TestSuite=$TestSuite
-      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.mono.System.Imaging.trx" --no-build
+      dotnet build /p:TestSuite=$TestSuite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.mono.System.Imaging.trx" --no-build -c Release
     displayName: Run System.Drawing.Common mono/System.Imaging unit tests
     continueOnError: true
   - task: PublishTestResults@1
