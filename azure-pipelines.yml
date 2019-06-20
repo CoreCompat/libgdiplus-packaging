@@ -32,6 +32,7 @@ jobs:
       tar xzf v2.2.5.tar.gz
     displayName: Download corefx
   - script: |
+      set -e
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite=""
@@ -40,6 +41,7 @@ jobs:
     displayName: Run System.Drawing.Common unit tests
     continueOnError: true
   - script: |
+      set -e
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite="Design"
@@ -48,6 +50,7 @@ jobs:
     displayName: Run System.Drawing.Common Design unit tests
     continueOnError: true
   - script: |
+      set -e
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite="Imaging"
@@ -56,6 +59,7 @@ jobs:
     displayName: Run System.Drawing.Common Imaging unit tests
     continueOnError: true
   - script: |
+      set -e
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite="Printing"
@@ -72,6 +76,7 @@ jobs:
     displayName: Run System.Drawing.Common Drawing2D unit tests
     continueOnError: true
   - script: |
+      set -e
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite="Text"
@@ -80,6 +85,7 @@ jobs:
     displayName: Run System.Drawing.Common Text unit tests
     continueOnError: true
   - script: |
+      set -e
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite="mono/System.Drawing"
@@ -88,6 +94,7 @@ jobs:
     displayName: Run System.Drawing.Common mono/System.Drawing unit tests
     continueOnError: true
   - script: |
+      set -e
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite="mono/System.Drawing.Imaging"
@@ -96,6 +103,7 @@ jobs:
     displayName: Run System.Drawing.Common mono/System.Drawing.Imaging unit tests
     continueOnError: true
   - script: |
+      set -e
       cd CoreCompat.System.Drawing.Tests
       export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
       export test_suite="mono/System.Imaging"
