@@ -17,6 +17,10 @@ jobs:
   - script: |
       cd runtime.osx.10.10-x64.CoreCompat.System.Drawing
 
+      # libffi is keg-only
+      export LDFLAGS="-L/usr/local/opt/libffi/lib"
+      export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+
       ./build.sh
       mkdir ${BUILD_ARTIFACTSTAGINGDIRECTORY}/libgdiplus
       dotnet build -c Release /p:Version=${LIBGDIPLUS_VERSION}.${BUILD_BUILDID}
