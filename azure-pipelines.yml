@@ -39,7 +39,6 @@ jobs:
       artifactName: 'libgdiplus'
       publishLocation: 'Container'
     displayName: Publish
-  condition: False
 
 - job: ppa
   strategy:
@@ -127,7 +126,6 @@ jobs:
       artifactName: 'deb' 
       publishLocation: 'Container'
     displayName: Publish
-  condition: False
 
 - job: osc
   pool:
