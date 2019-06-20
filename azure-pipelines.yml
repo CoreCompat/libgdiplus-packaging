@@ -36,7 +36,7 @@ jobs:
   - task: PublishTestResults@1
     inputs:
       testRunner: VSTest
-      testResultsFiles: CoreCompat.System.Drawing.Tests/*.trx
+      testResultsFiles: '$(Build.SourcesDirectory)/CoreCompat.System.Drawing.Tests/TestResults/*.trx'
     condition: always()
   - task: PublishBuildArtifacts@1
     inputs:
@@ -133,6 +133,7 @@ jobs:
       artifactName: 'deb' 
       publishLocation: 'Container'
     displayName: Publish
+    condition: always()
 
 - job: osc
   pool:
