@@ -5,12 +5,13 @@
     <RootNamespace>drawing_test</RootNamespace>
 
     <IsPackable>false</IsPackable>
-    <CoreFxDir>$(ProjectDir)/corefx-2.2.5/</CoreFxDir>
-    <TestDir>$(CoreFxDir)/src/System.Drawing.Common/tests/</TestDir>
-    <TestUtilsDir>$(CoreFxDir)/src/CoreFx.Private.TestUtilities/src/</TestUtilsDir>
-    <CommonDir>$(CoreFxDir)/src/Common/src/</CommonDir>
-    <CommonTestDir>$(CoreFxDir)/src/Common/tests/</CommonTestDir>
+    <CoreFxDir>$(MSBuildThisFileDirectory)/corefx-2.2.5</CoreFxDir>
+    <TestDir>$(CoreFxDir)/src/System.Drawing.Common/tests</TestDir>
+    <TestUtilsDir>$(CoreFxDir)/src/CoreFx.Private.TestUtilities/src</TestUtilsDir>
+    <CommonDir>$(CoreFxDir)/src/Common/src</CommonDir>
+    <CommonTestDir>$(CoreFxDir)/src/Common/tests</CommonTestDir>
 
+    <EnableDefaultItems>false</EnableDefaultItems>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
