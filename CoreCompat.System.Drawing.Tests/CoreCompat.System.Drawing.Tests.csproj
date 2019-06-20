@@ -7,6 +7,7 @@
     <IsPackable>false</IsPackable>
     <CoreFxDir>$(MSBuildThisFileDirectory)/corefx-2.2.5</CoreFxDir>
     <TestDir>$(CoreFxDir)/src/System.Drawing.Common/tests</TestDir>
+    <TestSuite></TestSuite>
     <TestUtilsDir>$(CoreFxDir)/src/CoreFx.Private.TestUtilities/src</TestUtilsDir>
     <CommonDir>$(CoreFxDir)/src/Common/src</CommonDir>
     <CommonTestDir>$(CoreFxDir)/src/Common/tests</CommonTestDir>
@@ -33,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="$(TestDir)/**/*.cs" />
+    <Compile Include="$(TestDir)/$(TestSuite)*.cs" />
     <Compile Remove="$(TestDir)/ColorTranslatorTests.cs" />
     <Compile Remove="$(TestDir)/ToolboxBitmapAttributeTests.cs" />
     <Compile Remove="$(TestDir)/IconTests.cs" />
