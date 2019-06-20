@@ -22,6 +22,17 @@ jobs:
       dotnet build -c Release /p:Version=${LIBGDIPLUS_VERSION}.${BUILD_BUILDID}
       dotnet pack -c Release /p:Version=${LIBGDIPLUS_VERSION}.${BUILD_BUILDID} -o ${BUILD_ARTIFACTSTAGINGDIRECTORY}/libgdiplus
     displayName: Build
+  - script: |
+      cd CoreCompat.System.Drawing.Tests
+      curl -L -O https://github.com/dotnet/corefx/archive/v2.2.5.tar.gz
+      tar xzf v2.2.5.tar.gz
+
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.trx"
+    displayName: Run System.Drawing.Common unit tests
+  - task: PublishTestResults@1
+    inputs:
+      testRunner: VSTest
+      testResultsFiles: CoreCompat.System.Drawing.Tests/*.trx
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)/libgdiplus'
@@ -105,6 +116,8 @@ jobs:
       cp ../libgdiplus_${LIBGDIPLUS_VERSION}* $BUILD_ARTIFACTSTAGINGDIRECTORY/deb/
 
       dput ppa:quamotion/ppa ../libgdiplus_${LIBGDIPLUS_VERSION}.${BUILD_BUILDID}-0${DIST}_source.changes
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    displayName: Publish PPA
   - script: |
       rm -rf /tmp/gpg_passphrase
     displayName: 'Cleanup GPG key'
@@ -177,6 +190,7 @@ jobs:
       cat libgdiplus0.spec
       osc add *
       osc commit -m "Version libgdiplus_${LIBGDIPLUS_VERSION}.${BUILD_BUILDID} - Azure Pipelines ${BUILD_BUILDNUMBER}"
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     displayName: Update OSC archives
   - script: |
       rm -rf ~/.oscrc

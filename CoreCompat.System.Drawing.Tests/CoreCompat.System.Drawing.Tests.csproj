@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>drawing_test</RootNamespace>
+
+    <IsPackable>false</IsPackable>
+    <CoreFxDir>$(ProjectDir)/corefx-2.2.5/</CoreFxDir>
+    <TestDir>$(CoreFxDir)/src/System.Drawing.Common/tests/</TestDir>
+    <TestUtilsDir>$(CoreFxDir)/src/CoreFx.Private.TestUtilities/src/</TestUtilsDir>
+    <CommonDir>$(CoreFxDir)/src/Common/src/</CommonDir>
+    <CommonTestDir>$(CoreFxDir)/src/Common/tests/</CommonTestDir>
+
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1-pre.build.4059	" />
+    <PackageReference Include="xunit.assert" Version="2.4.1-pre.build.4059" />
+    <PackageReference Include="xunit.core" Version="2.4.1-pre.build.4059" />
+    <PackageReference Include="Microsoft.DotNet.XUnitExtensions" Version="2.4.1-beta.19319.8" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
+    <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.6.20" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="$(TestDir)/**/*.cs" />
+    <Compile Remove="$(TestDir)/ColorTranslatorTests.cs" />
+    <Compile Remove="$(TestDir)/ToolboxBitmapAttributeTests.cs" />
+    <Compile Remove="$(TestDir)/IconTests.cs" />
+    <Compile Remove="$(TestDir)/ImageTests.cs" />
+
+    <Compile Include="$(TestUtilsDir)/System/AssertExtensions.cs" />
+    <Compile Include="$(TestUtilsDir)/System/PlatformDetection.cs" />
+    <Compile Include="$(TestUtilsDir)/System/PlatformDetection.Unix.cs" />
+    <Compile Include="$(CommonDir)/Interop/Unix/System.Security.Cryptography.Native/Interop.OpenSslVersion.cs" />
+    <Compile Include="$(CommonDir)/Interop/Unix/Interop.Libraries.cs" />
+    <Compile Include="$(CommonTestDir)/System/IO/TempFile.cs" />
+  </ItemGroup>
+</Project>
+
