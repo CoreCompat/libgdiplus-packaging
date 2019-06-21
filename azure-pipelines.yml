@@ -11,7 +11,7 @@ jobs:
     displayName: Install autotools
   - script: |
       cd runtime.osx.10.10-x64.CoreCompat.System.Drawing
-      git clone https://github.com/mono/libgdiplus --depth 1 --single-branch --branch master
+      git clone https://github.com/corecompat/libgdiplus --depth 1 --single-branch --branch master
       brew install libtiff giflib libjpeg glib cairo freetype fontconfig libpng
     displayName: Download sources, install dependencies
   - script: |
