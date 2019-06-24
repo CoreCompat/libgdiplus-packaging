@@ -28,8 +28,7 @@ jobs:
     displayName: Build
   - script: |
       cd CoreCompat.System.Drawing.Tests
-      curl -L -O https://github.com/dotnet/corefx/archive/v2.2.5.tar.gz
-      tar xzf v2.2.5.tar.gz
+      git clone https://github.com/corecompat/corefx --branch corecompat/system.drawing --depth=1
     displayName: Download corefx
   - script: |
       set -e
