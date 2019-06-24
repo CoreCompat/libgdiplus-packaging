@@ -5,9 +5,10 @@
     <RootNamespace>drawing_test</RootNamespace>
 
     <IsPackable>false</IsPackable>
-    <CoreFxDir>$(MSBuildThisFileDirectory)/corefx-2.2.5</CoreFxDir>
+    <BuildDrawingFromSource>false</BuildDrawingFromSource>
+    <CoreFxDir>$(MSBuildThisFileDirectory)/corefx</CoreFxDir>
     <TestDir>$(CoreFxDir)/src/System.Drawing.Common/tests</TestDir>
-    <TestSuite></TestSuite>
+    <TestSuite>**</TestSuite>
     <TestUtilsDir>$(CoreFxDir)/src/CoreFx.Private.TestUtilities/src</TestUtilsDir>
     <CommonDir>$(CoreFxDir)/src/Common/src</CommonDir>
     <CommonTestDir>$(CoreFxDir)/src/Common/tests</CommonTestDir>
@@ -31,25 +32,30 @@
     <PackageReference Include="System.Text.RegularExpressions" Version="4.1.0" />
     <!-- <PackageReference Include="Microsoft.DotNet.XUnitExtensions" Version="2.4.1-beta.19319.8" /> -->
     <PackageReference Include="System.Drawing.Common.TestData" Version="$(SystemDrawingCommonTestDataPackageVersion)" GeneratePathProperty="true" />
-    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
     <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.6.20" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Include="$(TestDir)/$(TestSuite)/*.cs" />
-    <Compile Include="$(TestDir)/Helpers.cs" />
     <Compile Include="Dummy.cs" />
     <Compile Remove="$(TestDir)/ColorTranslatorTests.cs" />
     <Compile Remove="$(TestDir)/ToolboxBitmapAttributeTests.cs" />
     <Compile Remove="$(TestDir)/IconTests.cs" />
     <Compile Remove="$(TestDir)/ImageTests.cs" />
+    <Compile Remove="$(TestDir)/Design\CategoryNameCollectionTests.cs" />
 
     <Compile Include="$(TestUtilsDir)/System/AssertExtensions.cs" />
     <Compile Include="$(TestUtilsDir)/System/PlatformDetection.cs" />
     <Compile Include="$(TestUtilsDir)/System/PlatformDetection.Unix.cs" />
+    <Compile Include="$(TestUtilsDir)/System/IO/FileCleanupTestBase.cs" />
     <Compile Include="$(CommonDir)/Interop/Unix/System.Security.Cryptography.Native/Interop.OpenSslVersion.cs" />
     <Compile Include="$(CommonDir)/Interop/Unix/Interop.Libraries.cs" />
     <Compile Include="$(CommonTestDir)/System/IO/TempFile.cs" />
+    <Compile Include="$(CommonTestDir)\System\Drawing\Helpers.cs">
+      <Link>Common\System\Drawing\Helpers.cs</Link>
+    </Compile>
+    <Compile Include="PlatformApis.cs" />
+    <Compile Include="SkipTestException.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -68,6 +74,11 @@
     <EmbeddedResource Include="$(PkgSystem_Drawing_Common_TestData)\contentFiles\any\any\bitmaps\256x256_one_entry_32bit.ico">
       <LogicalName>System.Drawing.Tests.Icon_toolboxBitmapAttributeTest</LogicalName>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Condition="'$(BuildDrawingFromSource)' != 'true'" Include="System.Drawing.Common" Version="4.5.1" />
+    <ProjectReference Condition="'$(BuildDrawingFromSource)' == 'true'" Include="..\CoreCompat.System.Drawing\CoreCompat.System.Drawing.csproj" />
   </ItemGroup>
 </Project>
 
