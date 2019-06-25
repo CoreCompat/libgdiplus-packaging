@@ -11,24 +11,117 @@ jobs:
     displayName: Install autotools
   - script: |
       cd runtime.osx.10.10-x64.CoreCompat.System.Drawing
-      git clone https://github.com/mono/libgdiplus --depth 1 --single-branch --branch master
+      git clone https://github.com/corecompat/libgdiplus --depth 1 --single-branch --branch master
       brew install libtiff giflib libjpeg glib cairo freetype fontconfig libpng
     displayName: Download sources, install dependencies
   - script: |
       cd runtime.osx.10.10-x64.CoreCompat.System.Drawing
+
+      # libffi is keg-only
+      export LDFLAGS="-L/usr/local/opt/libffi/lib"
+      export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
 
       ./build.sh
       mkdir ${BUILD_ARTIFACTSTAGINGDIRECTORY}/libgdiplus
       dotnet build -c Release /p:Version=${LIBGDIPLUS_VERSION}.${BUILD_BUILDID}
       dotnet pack -c Release /p:Version=${LIBGDIPLUS_VERSION}.${BUILD_BUILDID} -o ${BUILD_ARTIFACTSTAGINGDIRECTORY}/libgdiplus
     displayName: Build
+  - script: |
+      cd CoreCompat.System.Drawing.Tests
+      git clone https://github.com/corecompat/corefx --branch corecompat/system.drawing --depth=1
+    displayName: Download corefx
+  - script: |
+      set -e
+      cd CoreCompat.System.Drawing.Tests
+      export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
+      export test_suite=""
+      dotnet build /p:TestSuite=$test_suite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$test_suite.trx" --no-build -c Release
+    displayName: Run System.Drawing.Common unit tests
+    continueOnError: true
+  - script: |
+      set -e
+      cd CoreCompat.System.Drawing.Tests
+      export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
+      export test_suite="Design"
+      dotnet build /p:TestSuite=$test_suite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$test_suite.trx" --no-build -c Release
+    displayName: Run System.Drawing.Common Design unit tests
+    continueOnError: true
+  - script: |
+      set -e
+      cd CoreCompat.System.Drawing.Tests
+      export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
+      export test_suite="Imaging"
+      dotnet build /p:TestSuite=$test_suite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$test_suite.trx" --no-build -c Release
+    displayName: Run System.Drawing.Common Imaging unit tests
+    continueOnError: true
+  - script: |
+      set -e
+      cd CoreCompat.System.Drawing.Tests
+      export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
+      export test_suite="Printing"
+      dotnet build /p:TestSuite=$test_suite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$test_suite.trx" --no-build -c Release
+    displayName: Run System.Drawing.Common Printing unit tests
+    continueOnError: true
+  - script: |
+      cd CoreCompat.System.Drawing.Tests
+      export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
+      export test_suite="Drawing2D"
+      dotnet build /p:TestSuite=$test_suite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$test_suite.trx" --no-build -c Release
+    displayName: Run System.Drawing.Common Drawing2D unit tests
+    continueOnError: true
+  - script: |
+      set -e
+      cd CoreCompat.System.Drawing.Tests
+      export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
+      export test_suite="Text"
+      dotnet build /p:TestSuite=$test_suite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.$test_suite.trx" --no-build -c Release
+    displayName: Run System.Drawing.Common Text unit tests
+    continueOnError: true
+  - script: |
+      set -e
+      cd CoreCompat.System.Drawing.Tests
+      export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
+      export test_suite="mono/System.Drawing"
+      dotnet build /p:TestSuite=$test_suite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.mono.System.Drawing.trx" --no-build -c Release
+    displayName: Run System.Drawing.Common mono/System.Drawing unit tests
+    continueOnError: true
+  - script: |
+      set -e
+      cd CoreCompat.System.Drawing.Tests
+      export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
+      export test_suite="mono/System.Drawing.Imaging"
+      dotnet build /p:TestSuite=$test_suite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.mono.System.Drawing.Imaging.trx" --no-build -c Release
+    displayName: Run System.Drawing.Common mono/System.Drawing.Imaging unit tests
+    continueOnError: true
+  - script: |
+      set -e
+      cd CoreCompat.System.Drawing.Tests
+      export LD_LIBRARY_PATH="$(pwd)/../runtime.osx.10.10-x64.CoreCompat.System.Drawing/out/usr/local/lib:$LD_LIBRARY_PATH"
+      export test_suite="mono/System.Imaging"
+      dotnet build /p:TestSuite=$test_suite -c Release
+      dotnet test -l "trx;LogFileName=CoreCompat.System.Drawing.macos.mono.System.Imaging.trx" --no-build -c Release
+    displayName: Run System.Drawing.Common mono/System.Imaging unit tests
+    continueOnError: true
+  - task: PublishTestResults@1
+    inputs:
+      testRunner: VSTest
+      testResultsFiles: '$(Build.SourcesDirectory)/CoreCompat.System.Drawing.Tests/TestResults/*.trx'
+    condition: always()
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)/libgdiplus'
       artifactName: 'libgdiplus'
       publishLocation: 'Container'
     displayName: Publish
-  condition: False
+    condition: always()
 
 - job: ppa
   strategy:
@@ -102,9 +195,13 @@ jobs:
 
       dch -b -v "${LIBGDIPLUS_VERSION}.${BUILD_BUILDID}-0$DIST" --distribution $DIST "libgdiplus (upstream commit ${LIBGDIPLUS_COMMIT})"
       debuild -S -sa -k5314912C -p"$BUILD_SOURCESDIRECTORY/gpg-pass.sh /tmp/gpg_passphrase"
+      debuild -b -sa -k5314912C -p"$BUILD_SOURCESDIRECTORY/gpg-pass.sh /tmp/gpg_passphrase"
       cp ../libgdiplus_${LIBGDIPLUS_VERSION}* $BUILD_ARTIFACTSTAGINGDIRECTORY/deb/
-
-      dput ppa:quamotion/ppa ../libgdiplus_${LIBGDIPLUS_VERSION}.${BUILD_BUILDID}-0${DIST}_source.changes
+    displayName: Build .deb package
+  - script: |
+      dput ppa:quamotion/ppa libgdiplus_${LIBGDIPLUS_VERSION}.${BUILD_BUILDID}-0${DIST}_source.changes
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+    displayName: Publish PPA
   - script: |
       rm -rf /tmp/gpg_passphrase
     displayName: 'Cleanup GPG key'
@@ -114,7 +211,7 @@ jobs:
       artifactName: 'deb' 
       publishLocation: 'Container'
     displayName: Publish
-  condition: False
+    condition: always()
 
 - job: osc
   pool:
@@ -177,6 +274,7 @@ jobs:
       cat libgdiplus0.spec
       osc add *
       osc commit -m "Version libgdiplus_${LIBGDIPLUS_VERSION}.${BUILD_BUILDID} - Azure Pipelines ${BUILD_BUILDNUMBER}"
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
     displayName: Update OSC archives
   - script: |
       rm -rf ~/.oscrc

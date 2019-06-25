@@ -1,0 +1,163 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    
+    <CoreFxDir>$(MSBuildThisFileDirectory)/../CoreCompat.System.Drawing.Tests/corefx</CoreFxDir>
+    <SourceDir>$(CoreFxDir)/src/System.Drawing.Common/src</SourceDir>
+    <CommonPath>$(CoreFxDir)/src/Common/src</CommonPath>
+    <DefineConstants>NETCORE;$(DefineConstants)</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="$(SourceDir)/**/*.cs" />
+    <!-- Opportunities for code consolidation -->
+    <Compile Remove="$(SourceDir)/System/Drawing/SRDescriptionAttribute.cs" />
+    <Compile Remove="$(SourceDir)/**/*.Unix.cs" />
+    <!-- <Compile Remove="$(SourceDir)/**/*.Windows.cs" /> -->
+    <!-- List of files which are named oddly -->
+    <!--
+    <Compile Remove="$(SourceDir)/System/Drawing/ImageInfo.cs" />
+    <Compile Remove="$(SourceDir)/misc/ExternDll.cs" />
+    <Compile Remove="$(SourceDir)/System/Drawing/ToolboxBitmapAttribute.cs" />
+    <Compile Remove="$(SourceDir)/System/Drawing/Printing/PageSettings.Serializable.cs" />
+    <Compile Remove="$(SourceDir)/System/Drawing/Printing/PrinterSettings.Serializable.cs" />
+    <Compile Remove="$(SourceDir)/System/Drawing/Printing/DefaultPrintController.cs" />
+    <Compile Remove="$(SourceDir)/System/Drawing/Imaging/Metafile.Serializable.cs" />
+    -->
+    <Compile Remove="$(SourceDir)/System/Drawing/BufferedGraphics*.Windows.cs"/>
+    <Compile Include="$(SourceDir)/System/Drawing/BufferedGraphics*.Unix.cs"/>
+    <Compile Remove="$(SourceDir)/System/Drawing/Icon*.Windows.cs"/>
+    <Compile Include="$(SourceDir)/System/Drawing/Icon*.Unix.cs"/>
+    <Compile Remove="$(SourceDir)/System/Drawing/SystemIcons*.Windows.cs"/>
+    <Compile Include="$(SourceDir)/System/Drawing/SystemIcons*.Unix.cs"/>
+    <Compile Remove="$(SourceDir)/System/Drawing/Imaging/BitmapData.Windows.cs"/>
+    <Compile Include="$(SourceDir)/System/Drawing/Imaging/BitmapData.Unix.cs"/>
+    <Compile Remove="$(SourceDir)/System/Drawing/LibX11Functions.cs" />
+    <Compile Remove="$(SourceDir)/System/Drawing/Printing/LibcupsNative.cs" />
+    <Compile Remove="$(SourceDir)/System/Drawing/ColorConverter.cs" />
+    <Compile Remove="$(SourceDir)/**/*.NotSerializable.cs" />
+    <Compile Remove="$(SourceDir)/**/*.Core.cs" />
+    <Compile Remove="$(SourceDir)/System/Drawing/Design/*.cs" />
+    <Compile Remove="$(SourceDir)/misc/InvalidEnumArgumentException.cs" />
+    <Compile Include="$(CommonPath)\System\Drawing\ColorConverterCommon.cs">
+      <Link>System\Drawing\ColorConverterCommon.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\CoreLib\System\LocalAppContextSwitches.Common.cs">
+      <Link>Common\CoreLib\System\LocalAppContextSwitches.Common.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\System\Drawing\ColorTable.cs">
+      <Link>System\Drawing\ColorTable.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\System\Drawing\ColorUtil.netcoreapp20.cs">
+      <Link>System\Drawing\ColorUtil.netcoreapp20.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\System\Drawing\KnownColorTable.cs">
+      <Link>System\Drawing\KnownColorTable.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\System\Drawing\SystemColors.cs">
+      <Link>System\Drawing\SystemColors.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\System\Drawing\ColorTranslator.cs">
+      <Link>System\Drawing\ColorTranslator.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\System\Runtime\InteropServices\FunctionWrapper.cs">
+      <Link>Common\System\Runtime\InteropServices\FunctionWrapper.cs</Link>
+    </Compile>
+    <!--
+    <Compile Include="$(CommonPath)\Interop\Unix\Interop.Libraries.cs">
+      <Link>Common\Interop\Unix\Interop.Libraries.cs</Link>
+    </Compile>
+    -->
+    <Compile Include="$(CommonPath)\Interop\Windows\Interop.Libraries.cs">
+      <Link>Common\Interop\Windows\Interop.Libraries.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\Interop\Windows\kernel32\Interop.FreeLibrary.cs">
+      <Link>Common\Interop\Windows\kernel32\Interop.FreeLibrary.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\Interop\Windows\kernel32\Interop.LoadLibraryEx.cs">
+      <Link>Common\Interop\Windows\kernel32\Interop.LoadLibraryEx.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\Interop\Windows\kernel32\Interop.GetProcAddress.cs">
+      <Link>Common\Interop\Windows\kernel32\Interop.GetProcAddress.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\Interop\Windows\user32\Interop.GetSysColor.cs">
+      <Link>Common\Interop\Windows\user32\Interop.GetSysColor.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\Interop\Windows\user32\Interop.Win32SystemColors.cs">
+      <Link>Common\Interop\Windows\user32\Interop.Win32SystemColors.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\Interop\Windows\Ole32\Interop.IStream.cs">
+      <Link>Common\Interop\Windows\Ole32\Interop.IStream.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\Interop\Windows\Ole32\Interop.STATSTG.cs">
+      <Link>Common\Interop\Windows\Ole32\Interop.STATSTG.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\Interop\Windows\Ole32\Interop.STGTY.cs">
+      <Link>Common\Interop\Windows\Ole32\Interop.STGTY.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\Interop\Windows\Ole32\Interop.STATFLAG.cs">
+      <Link>Common\Interop\Windows\Ole32\Interop.STATFLAG.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\Interop\Windows\Ole32\Interop.STGM.cs">
+      <Link>Common\Interop\Windows\Ole32\Interop.STGM.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\Interop\Windows\Interop.HRESULT.cs">
+      <Link>Common\Interop\Windows\Interop.HRESULT.cs</Link>
+    </Compile>
+    <!--
+    <Compile Include="$(CommonPath)\Interop\Unix\libdl\Interop.dlopen.cs">
+      <Link>Common\Interop\Unix\libdl\Interop.dlopen.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\Interop\Unix\libdl\Interop.dlsym.cs">
+      <Link>Common\Interop\Unix\libdl\Interop.dlsym.cs</Link>
+    </Compile>
+    -->
+    <Compile Include="$(CommonPath)\CoreLib\Microsoft\Win32\SafeHandles\SafeLibraryHandle.cs">
+      <Link>Common\CoreLib\MMicrosoft\Win32\SafeHandles\SafeLibraryHandle.cs</Link>
+    </Compile>
+    <Compile Include="$(CommonPath)\System\Runtime\InteropServices\FunctionWrapper.Windows.cs">
+      <Link>Common\System\Runtime\InteropServices\FunctionWrapper.Windows.cs</Link>
+    </Compile>
+    <EmbeddedResource Include="$(SourceDir)\Resources\System\Drawing\DefaultComponent.bmp">
+      <LogicalName>System.Drawing.DefaultComponent.bmp</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(SourceDir)\Resources\System\Drawing\Printing\PrintDocument.bmp" />
+    <EmbeddedResource Include="$(SourceDir)\Resources\System\Drawing\ShieldIcon.ico">
+      <LogicalName>System.Drawing.ShieldIcon.ico</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Win32.SystemEvents" Version="4.5.0" />
+    <PackageReference Include="System.Buffers" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="SR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SR.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="C:\Users\frede\Source\Repos\libgdiplus-packaging\CoreCompat.System.Drawing\/../CoreCompat.System.Drawing.Tests/corefx-2.2.5/src/System.Drawing.Common/src\Resources\Strings.resx">
+      <CustomToolNamespace></CustomToolNamespace>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SR.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>System</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

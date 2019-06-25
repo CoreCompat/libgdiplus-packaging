@@ -1,0 +1,84 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>drawing_test</RootNamespace>
+
+    <IsPackable>false</IsPackable>
+    <BuildDrawingFromSource>false</BuildDrawingFromSource>
+    <CoreFxDir>$(MSBuildThisFileDirectory)/corefx</CoreFxDir>
+    <TestDir>$(CoreFxDir)/src/System.Drawing.Common/tests</TestDir>
+    <TestSuite>**</TestSuite>
+    <TestUtilsDir>$(CoreFxDir)/src/CoreFx.Private.TestUtilities/src</TestUtilsDir>
+    <CommonDir>$(CoreFxDir)/src/Common/src</CommonDir>
+    <CommonTestDir>$(CoreFxDir)/src/Common/tests</CommonTestDir>
+
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <XunitNetcoreExtensionsVersion>2.2.0-preview1-03915-02</XunitNetcoreExtensionsVersion>
+    <XUnitPackageVersion>2.3.0-beta1-build3642</XUnitPackageVersion>
+    <SystemDrawingCommonTestDataPackageVersion>1.0.12</SystemDrawingCommonTestDataPackageVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="$(XUnitPackageVersion)" />
+    <PackageReference Include="xunit.assert" Version="$(XUnitPackageVersion)" />
+    <PackageReference Include="xunit.core" Version="$(XUnitPackageVersion)" />
+    <PackageReference Include="Microsoft.xunit.netcore.extensions" Version="$(XunitNetcoreExtensionsVersion)" />
+    <PackageReference Include="Microsoft.DotNet.BuildTools.TestSuite" Version="$(XunitNetcoreExtensionsVersion)" />
+    <PackageReference Include="System.Linq.Expressions" Version="4.1.0" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.1.0" />
+    <!-- <PackageReference Include="Microsoft.DotNet.XUnitExtensions" Version="2.4.1-beta.19319.8" /> -->
+    <PackageReference Include="System.Drawing.Common.TestData" Version="$(SystemDrawingCommonTestDataPackageVersion)" GeneratePathProperty="true" />
+    <PackageReference Include="runtime.osx.10.10-x64.CoreCompat.System.Drawing" Version="5.6.20" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="$(TestDir)/$(TestSuite)/*.cs" />
+    <Compile Include="Dummy.cs" />
+    <Compile Remove="$(TestDir)/ColorTranslatorTests.cs" />
+    <Compile Remove="$(TestDir)/ToolboxBitmapAttributeTests.cs" />
+    <Compile Remove="$(TestDir)/IconTests.cs" />
+    <Compile Remove="$(TestDir)/ImageTests.cs" />
+    <Compile Remove="$(TestDir)/Design\CategoryNameCollectionTests.cs" />
+
+    <Compile Include="$(TestUtilsDir)/System/AssertExtensions.cs" />
+    <Compile Include="$(TestUtilsDir)/System/PlatformDetection.cs" />
+    <Compile Include="$(TestUtilsDir)/System/PlatformDetection.Unix.cs" />
+    <Compile Include="$(TestUtilsDir)/System/IO/FileCleanupTestBase.cs" />
+    <Compile Include="$(CommonDir)/Interop/Unix/System.Security.Cryptography.Native/Interop.OpenSslVersion.cs" />
+    <Compile Include="$(CommonDir)/Interop/Unix/Interop.Libraries.cs" />
+    <Compile Include="$(CommonTestDir)/System/IO/TempFile.cs" />
+    <Compile Include="$(CommonTestDir)\System\Drawing\Helpers.cs">
+      <Link>Common\System\Drawing\Helpers.cs</Link>
+    </Compile>
+    <Compile Include="PlatformApis.cs" />
+    <Compile Include="SkipTestException.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="$(PkgSystem_Drawing_Common_TestData)\contentFiles\any\any\bitmaps\48x48_multiple_entries_4bit.ico">
+      <LogicalName>System.Drawing.Tests.48x48_multiple_entries_4bit.ico</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(PkgSystem_Drawing_Common_TestData)\contentFiles\any\any\bitmaps\bitmap_173x183_indexed_8bit.bmp">
+      <LogicalName>System.Drawing.Tests.bitmap_173x183_indexed_8bit.bmp</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(PkgSystem_Drawing_Common_TestData)\contentFiles\any\any\bitmaps\empty.file">
+      <LogicalName>System.Drawing.Tests.empty.file</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(PkgSystem_Drawing_Common_TestData)\contentFiles\any\any\bitmaps\invalid.ico">
+      <LogicalName>System.Drawing.Tests.invalid.ico</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(PkgSystem_Drawing_Common_TestData)\contentFiles\any\any\bitmaps\256x256_one_entry_32bit.ico">
+      <LogicalName>System.Drawing.Tests.Icon_toolboxBitmapAttributeTest</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Condition="'$(BuildDrawingFromSource)' != 'true'" Include="System.Drawing.Common" Version="4.5.1" />
+    <ProjectReference Condition="'$(BuildDrawingFromSource)' == 'true'" Include="..\CoreCompat.System.Drawing\CoreCompat.System.Drawing.csproj" />
+  </ItemGroup>
+</Project>
+

@@ -3,5 +3,8 @@ bin/
 obj/
 libgdiplus/
 out/
+corefx-*/
 *.dylib
 *.tar.gz
+*.swp
+

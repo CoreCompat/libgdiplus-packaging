@@ -12,6 +12,7 @@ cd "$path/libgdiplus"
 ./autogen.sh --prefix="$out" CPPFLAGS="-I/usr/X11/include/" --without-x11
 make clean
 make
+make check
 make install
 
 # Copy the dependent dylibs from /usr/local/opt to the $out dir
