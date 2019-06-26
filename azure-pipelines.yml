@@ -1,5 +1,5 @@
 variables:
-  LIBGDIPLUS_VERSION: '5.23'
+  LIBGDIPLUS_VERSION: '5.8'
 
 jobs:
 - job: macos
