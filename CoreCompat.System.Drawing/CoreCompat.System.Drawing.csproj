@@ -7,7 +7,15 @@
     <SourceDir>$(CoreFxDir)/src/System.Drawing.Common/src</SourceDir>
     <CommonPath>$(CoreFxDir)/src/Common/src</CommonPath>
     <DefineConstants>NETCORE;$(DefineConstants)</DefineConstants>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
