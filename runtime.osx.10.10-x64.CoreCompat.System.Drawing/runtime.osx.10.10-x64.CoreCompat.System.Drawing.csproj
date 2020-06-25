@@ -9,7 +9,15 @@
     <RepositoryType>git</RepositoryType>
     <Copyright>Mono</Copyright>
     <LibgdiplusDir>out/usr/local/lib/</LibgdiplusDir>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <Content Include="$(LibgdiplusDir)libcairo.2.dylib">
