@@ -52,7 +52,7 @@ for f in "$out/lib/"*.dylib; do
 done
 
 echo "---- available dylib files:"
-ls -l "$out/lib/*.dylib"
+ls -l "$out/lib/"*.dylib
 echo "---- available dylib files"
 
 # Build the lighthouse library

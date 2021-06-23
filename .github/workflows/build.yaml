@@ -3,11 +3,12 @@ on:
   push:
   pull_request:
 
+env:
+  LIBGDIPLUS_VERSION: '6.0.5'
+
 jobs:
   build:
     runs-on: macOS-10.15
-    env:
-      LIBGDIPLUS_VERSION: '6.0.5'
     steps:
       - uses: actions/checkout@v2
         with:
@@ -21,6 +22,7 @@ jobs:
           cd runtime.osx.10.10-x64.CoreCompat.System.Drawing
           git clone https://github.com/mono/libgdiplus --depth 1 --single-branch --branch ${LIBGDIPLUS_VERSION}
           brew install libtiff giflib libjpeg glib cairo freetype fontconfig libpng
+
       - name: Build
         run: |
           cd runtime.osx.10.10-x64.CoreCompat.System.Drawing
@@ -40,3 +42,39 @@ jobs:
           name: libgdiplus
           path: |
             ${{ github.workspace }}/bin/
+
+  test:
+    runs-on: macOS-10.15
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: libgdiplus
+          path: |
+            ${{ github.workspace }}/bin/
+
+      - name: Clean dependencies
+        run: |
+          brew remove --force $(brew list)
+
+          echo
+          echo "=========================="
+          echo "Contents of /usr/local/opt"
+          echo "=========================="
+          echo
+
+          ls -l /usr/local/opt/
+
+      - name: Test
+        run: |
+          cd runtime.osx.10.10-x64.CoreCompat.System.Drawing.Tests
+
+          dotnet nuget list source
+          dotnet nuget add source ${{ github.workspace }}/bin/ -n ci
+
+          dotnet add package runtime.osx.10.10-x64.CoreCompat.System.Drawing --version ${LIBGDIPLUS_VERSION}.${GITHUB_RUN_NUMBER}
+          DYLD_PRINT_LIBRARIES=1 dotnet run
