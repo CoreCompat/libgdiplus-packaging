@@ -1,6 +1,6 @@
 # libgdiplus packaging for macOS
 
-[![Build Status](https://dev.azure.com/corecompat/libgdiplus/_apis/build/status/CoreCompat.libgdiplus-packaging?branchName=master)](https://dev.azure.com/corecompat/libgdiplus/_build/latest?definitionId=1?branchName=master)
+[![Build Status](https://github.com/CoreCompat/libgdiplus-packaging/actions/workflows/build.yaml/badge.svg)](https://github.com/CoreCompat/libgdiplus-packaging/actions/workflows/build.yaml)
 
 [System.Drawing.Common](https://www.nuget.org/packages/System.Drawing.Common) is the graphics library which ships as part of .NET Core.
 On macOS and Linux, it uses [libgdiplus](https://github.com/mono/libgdiplus) as its back-end.
