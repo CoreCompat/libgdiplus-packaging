@@ -16,6 +16,10 @@ make check
 make install
 
 # Copy the dependent dylibs from /usr/local/opt to the $out dir
+echo "---- libgdiplus dependencies:"
+otool -L "$out/lib/libgdiplus.dylib"
+echo "---- libgdiplus dependencies"
+
 dylibs=`otool -L "$out/lib/libgdiplus.dylib" | grep "/usr/local" | awk -F' ' '{ print $1 }'`
 
 for dylib in $dylibs; do
@@ -46,6 +50,10 @@ for f in "$out/lib/"*.dylib; do
 
    # otool -L "$f"
 done
+
+echo "---- available dylib files:"
+ls -l "$out/lib/*.dylib"
+echo "---- available dylib files"
 
 # Build the lighthouse library
 cd $path

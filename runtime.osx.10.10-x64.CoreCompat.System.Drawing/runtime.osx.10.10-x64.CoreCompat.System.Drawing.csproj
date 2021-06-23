@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Title>OS X Native libraries for System.Drawing</Title>
-    <Description>Allows you to use System.Drawing on OS X</Description>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/CoreCompat/libgdiplus-packaging/LICENSE</PackageLicenseUrl>
+    <Title>macOS Native libraries for System.Drawing.Common</Title>
+    <Description>Allows you to use System.Drawing.Common on macOS</Description>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/CoreCompat/libgdiplus-packaging/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/CoreCompat/libgdiplus-packaging</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <Copyright>Mono</Copyright>
@@ -21,7 +21,7 @@
     <Content Include="$(LibgdiplusDir)libfreetype.6.dylib">
       <PackagePath>runtimes/osx-x64/native/</PackagePath>
     </Content>
-    <Content Include="$(LibgdiplusDir)libgif.7.dylib">
+    <Content Include="$(LibgdiplusDir)libgif.dylib">
       <PackagePath>runtimes/osx-x64/native/</PackagePath>
     </Content>
     <Content Include="$(LibgdiplusDir)libglib-2.0.0.dylib">
