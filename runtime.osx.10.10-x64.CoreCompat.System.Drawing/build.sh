@@ -26,9 +26,26 @@ for dylib in $dylibs; do
   cp $dylib "$out/lib/"
 done;
 
-# libcairo has a dependency on libpixman, so include that one, too
-cp /usr/local/opt/pixman/lib/libpixman-1.0.dylib "$out/lib"
-cp /usr/local/lib/libpcre.1.dylib "$out/lib"
+# libcairo has various dependencies, so include those too
+dylibs=`otool -L "$out/lib/libcairo.2.dylib" | grep "/usr/local" | awk -F' ' '{ print $1 }'`
+
+for dylib in $dylibs; do
+  cp $dylib "$out/lib/"
+done;
+
+# libxcb has various dependencies, so include those too
+dylibs=`otool -L "$out/lib/libxcb.1.dylib" | grep "/usr/local" | awk -F' ' '{ print $1 }'`
+
+for dylib in $dylibs; do
+  cp $dylib "$out/lib/"
+done;
+
+# libxcb has various dependencies, so include those too
+dylibs=`otool -L "$out/lib/libglib-2.0.0.dylib" | grep "/usr/local" | awk -F' ' '{ print $1 }'`
+
+for dylib in $dylibs; do
+  cp $dylib "$out/lib/"
+done;
 
 # Patch the dylib dependencies for all .dylib files in the out directory
 for f in "$out/lib/"*.dylib; do
@@ -52,7 +69,7 @@ for f in "$out/lib/"*.dylib; do
 done
 
 echo "---- available dylib files:"
-ls -l "$out/lib/*.dylib"
+ls -l "$out/lib/"*.dylib
 echo "---- available dylib files"
 
 # Build the lighthouse library

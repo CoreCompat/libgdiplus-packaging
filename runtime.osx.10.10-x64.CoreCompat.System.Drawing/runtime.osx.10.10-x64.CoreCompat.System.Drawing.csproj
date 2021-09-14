@@ -12,44 +12,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="$(LibgdiplusDir)libcairo.2.dylib">
-      <PackagePath>runtimes/osx-x64/native/</PackagePath>
-    </Content>
-    <Content Include="$(LibgdiplusDir)libfontconfig.1.dylib">
-      <PackagePath>runtimes/osx-x64/native/</PackagePath>
-    </Content>
-    <Content Include="$(LibgdiplusDir)libfreetype.6.dylib">
-      <PackagePath>runtimes/osx-x64/native/</PackagePath>
-    </Content>
-    <Content Include="$(LibgdiplusDir)libgif.dylib">
-      <PackagePath>runtimes/osx-x64/native/</PackagePath>
-    </Content>
-    <Content Include="$(LibgdiplusDir)libglib-2.0.0.dylib">
-      <PackagePath>runtimes/osx-x64/native/</PackagePath>
-    </Content>
-    <Content Include="$(LibgdiplusDir)libintl.8.dylib">
-      <PackagePath>runtimes/osx-x64/native/</PackagePath>
-    </Content>
-    <Content Include="$(LibgdiplusDir)libjpeg.9.dylib">
-      <PackagePath>runtimes/osx-x64/native/</PackagePath>
-    </Content>
-    <Content Include="$(LibgdiplusDir)libpixman-1.0.dylib">
-      <PackagePath>runtimes/osx-x64/native/</PackagePath>
-    </Content>
-    <Content Include="$(LibgdiplusDir)libtiff.5.dylib">
-      <PackagePath>runtimes/osx-x64/native/</PackagePath>
-    </Content>
-    <Content Include="$(LibgdiplusDir)libpcre.1.dylib">
-      <PackagePath>runtimes/osx-x64/native/</PackagePath>
-    </Content>
-    <Content Include="$(LibgdiplusDir)libgdiplus.dylib">
-      <PackagePath>runtimes/osx-x64/native/</PackagePath>
-    </Content>
-    <Content Include="$(LibgdiplusDir)libpng16.16.dylib">
-      <PackagePath>runtimes/osx-x64/native/</PackagePath>
-    </Content>
-    <Content Include="libgdiplus-lighthouse.dylib">
-      <PackagePath>runtimes/osx-x64/native/</PackagePath>
-    </Content>
+    <Content Include="$(LibgdiplusDir)*.dylib" PackagePath="runtimes/osx-x64/native/"/>
   </ItemGroup>
 </Project>
