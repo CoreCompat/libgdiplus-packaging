@@ -77,4 +77,4 @@ jobs:
           dotnet nuget add source ${{ github.workspace }}/bin/ -n ci
 
           dotnet add package runtime.osx.10.10-x64.CoreCompat.System.Drawing --version ${LIBGDIPLUS_VERSION}.${GITHUB_RUN_NUMBER}
-          DYLD_PRINT_LIBRARIES=1 dotnet run
+          DYLD_PRINT_LIBRARIES=1 dotnet test
